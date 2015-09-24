@@ -20,7 +20,15 @@ def get_links():
 
 def main():
 	links = get_links()
-	driver = webdriver.Firefox()
+	profile = webdriver.FirefoxProfile()
+
+	profile.set_preference('browser.download.folderList', 0)
+	profile.set_preference('browser.download.manager.showWhenStarting', False)
+	profile.set_preference('browser.download.dir', '/tmp')
+	profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'audio/mpeg')
+
+	driver = webdriver.Firefox(profile)
+
 	for link in links:
 		download(driver, link)
 
