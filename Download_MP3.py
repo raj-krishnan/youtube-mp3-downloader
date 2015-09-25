@@ -6,14 +6,10 @@ from os.path import isfile, join
 def main():
 	download_path = '/home/raj/Downloads/'
 	links = get_links()
-	profile = webdriver.FirefoxProfile()
-
-	profile.set_preference('browser.download.folderList', 2)
-	profile.set_preference('browser.download.manager.showWhenStarting', False)
-	profile.set_preference('browser.download.dir', download_path)
-	profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'audio/mpeg')
-
+	firefox_profile = '/home/raj/Documents/Github/youtube-mp3-downloader/firefox_profile.default'
+	profile = webdriver.FirefoxProfile(firefox_profile)
 	driver = webdriver.Firefox(profile)
+	print "Driver ready"
 
 	for link in links:
 		download(driver, link)
@@ -46,7 +42,7 @@ def get_links():
 def download(driver, link):
 	driver.get('http://peggo.co/dvr/' + link)
 	driver.find_element_by_xpath("//a[@id='record-audio']").click()
-	time.sleep(30)
+	time.sleep(20)
 
 if __name__ == '__main__':
 	main()
