@@ -34,3 +34,8 @@ This is a small script to download mp3 audio files from Youtube
 2. Paste the links of the required Youtube videos in Youtube_Links.txt
 3. Run Download_Songs.bat or Download_Songs.sh based on your operating system
 4. *Optional* You can also create a shortcut to these files for easy access
+
+### To Do
+
+- Add support for playlists
+
