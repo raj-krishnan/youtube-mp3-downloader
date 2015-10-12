@@ -38,4 +38,5 @@ This is a small script to download mp3 audio files from Youtube
 ### To Do
 
 - Add support for playlists
+- Migrate to using youtube-dl
 
