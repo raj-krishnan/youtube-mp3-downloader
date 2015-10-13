@@ -2,20 +2,21 @@ import time
 from selenium import webdriver
 from os import listdir
 from os.path import isfile, join
+import os
+
+from bs4 import BeautifulSoup
 
 def main():
     download_path = '/home/raj/Downloads/'
     firefox_profile = '/home/raj/Documents/Github/youtube-mp3-downloader/firefox_profile.default'
     profile = webdriver.FirefoxProfile(firefox_profile)
     driver = webdriver.Firefox(profile)
-    print "Driver ready"
-    
     choice = raw_input("Enter p for playlist download, v for individual video download: ")[0].lower()
 
     if choice == 'v' or choice == 'V':
         links = get_links()
         for link in links:
-            download(driver, link)
+            download(driver, link, True)
         while 1:
             file_list = [f for f in listdir(download_path) if isfile(join(download_path,f))]
             part_files = 0
@@ -52,10 +53,13 @@ def get_links():
                 download_list.append(link[start:])
     return download_list
 
-def download(driver, link):
-    driver.get('http://peggo.co/dvr/' + link)
-    driver.find_element_by_xpath("//a[@id='record-audio']").click()
-    time.sleep(20)
+def download(driver, link, youtube_dl = False):
+    if not youtube_dl:
+        driver.get('http://peggo.co/dvr/' + link)
+        driver.find_element_by_xpath("//a[@id='record-audio']").click()
+        time.sleep(20)
+    else:
+        os.system('youtube-dl --format bestaudio/best --extract-audio --audio-format mp3 --audio-quality 0 www.youtube.com/watch?v=' + link)
 
 def download_playlist(driver, list_id):
     pass
